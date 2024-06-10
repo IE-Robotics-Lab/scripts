@@ -16,7 +16,7 @@ echo "Enabling local DNS resolution..."
 curl -s $DNS_ENABLE_SCRIPT | bash
 echo "Local DNS resolution enabled!"
 # test it out by ping to colossus
-ping colossus
+ping colossus -c 1
 if [ $? -eq 0 ]; then
     echo "Local DNS resolution is working!"
 else
