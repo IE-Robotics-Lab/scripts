@@ -1,0 +1,47 @@
+---
+- name: Ensure key packages are installed
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install essential packages
+      apt:
+        name:
+          - vim
+          - git
+          - curl
+          - wget
+          - btop
+        state: present
+
+
+    - name: Install Python and pip
+      apt:
+        name:
+          - python3
+          - python3-pip
+        state: present
+
+    - name: Ensure pip is up to date
+      pip:
+        name: pip
+        state: latest
+        executable: pip3
+
+    - name: Install Python packages
+      pip:
+        name:
+          - virtualenv
+          - numpy
+          - pandas
+        state: present
+        executable: pip3
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
