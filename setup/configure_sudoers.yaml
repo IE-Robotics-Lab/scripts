@@ -1,0 +1,17 @@
+---
+- name: Ensure %SUDOers line is present in /etc/sudoers
+  hosts: all
+  become: yes
+  tasks:
+    - name: Check if %SUDOers line is present
+      command: grep -q "^%SUDOers" /etc/sudoers
+      register: sudoers_check
+      ignore_errors: true
+
+    - name: Add %SUDOers line if not present
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%SUDOers'
+        line: '%SUDOers ALL=(ALL:ALL) ALL'
+      when: sudoers_check.rc != 0
