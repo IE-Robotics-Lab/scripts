@@ -1,0 +1,30 @@
+---
+- name: Install and enable SSH server
+  hosts: all
+  become: yes
+  tasks:
+    - name: Ensure SSH package is installed (Debian/Ubuntu)
+      apt:
+        name: ssh
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Ensure SSH package is installed (RedHat/CentOS)
+      yum:
+        name: openssh-server
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Ensure SSH service is enabled and started (Debian/Ubuntu)
+      service:
+        name: ssh
+        state: started
+        enabled: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Ensure SSH service is enabled and started (RedHat/CentOS)
+      service:
+        name: sshd
+        state: started
+        enabled: yes
+      when: ansible_os_family == "RedHat"

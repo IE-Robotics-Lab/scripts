@@ -1,0 +1,34 @@
+---
+- name: Disable and stop systemd-resolved
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Disable systemd-resolved
+      ansible.builtin.systemd:
+        name: systemd-resolved
+        enabled: no
+        state: stopped
+
+    - name: Ensure dns=default is in NetworkManager.conf
+      ansible.builtin.lineinfile:
+        path: /etc/NetworkManager/NetworkManager.conf
+        regexp: '^dns=default$'
+        line: 'dns=default'
+        insertbefore: '^\\[main\\]'
+
+    - name: Backup resolv.conf
+      ansible.builtin.copy:
+        src: /etc/resolv.conf
+        dest: /etc/resolv.conf.bak
+        backup: yes
+
+    - name: Remove resolv.conf
+      ansible.builtin.file:
+        path: /etc/resolv.conf
+        state: absent
+
+    - name: Restart NetworkManager
+      ansible.builtin.systemd:
+        name: NetworkManager
+        state: restarted
