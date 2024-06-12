@@ -23,3 +23,9 @@ else
     echo "Local DNS resolution is not working!"
     exit 1
 fi
+
+ANSIBLE_SSH="setup/ssh.yml"
+echo "Running Ansible playbook for SSH..."
+ansible-pull -U $GITHUB_REPO -i "localhost," -c local -K $ANSIBLE_SSH
+
+echo "Done!"
