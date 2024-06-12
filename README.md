@@ -1,15 +1,8 @@
 # scripts
 
 
-## Generic Setup Script
+## [Generic Setup Script](https://github.com/IE-Robotics-Lab/scripts/tree/main/setup)
 
-1. Have `curl` installed on your system.
-
-```bash
-wget https://raw.githubusercontent.com/IE-Robotics-Lab/scripts/main/setup/setup.sh -O setup.sh && chmod +x setup.sh && sudo ./setup.sh
-```
-
-When prompted for the **BECOME password**, enter your user password to allow the script to run with `sudo` permissions.
 
 
 ## How pull any ansible playbook
