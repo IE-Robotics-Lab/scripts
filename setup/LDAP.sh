@@ -22,12 +22,12 @@ apt-get update && apt-get install -y libnss-ldapd libpam-ldapd nscd nslcd autofs
 LDAP_URI="ldap://10.205.1.2/"
 BASE_DN="dc=colossus"
 BIND_DN="cn=admin,dc=colossus"
-# prompt for the password
-read -s -p "Enter the LDAP bind password: " BIND_PW
+# prompt for the password -s can sometimes be an ilegal option
+read -p "Enter the LDAP bind password: " BIND_PW
 # check if the password is correct
 ldapsearch -x -D $BIND_DN -w $BIND_PW -b $BASE_DN -H $LDAP_URI > /dev/null
 if [ $? -ne 0 ]; then
-    echo "Invalid password. Exiting..."
+    echo "Invalid password"
     exit 1
 fi
 NFS_SERVER="10.205.1.2"  # Replace with your NFS server IP or hostname
