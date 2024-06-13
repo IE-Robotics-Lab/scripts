@@ -1,0 +1,29 @@
+---
+- name: Install xrdp and configure polkit
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install xrdp
+      apt:
+        name: xrdp
+        state: present
+        update_cache: yes
+
+    - name: Ensure /etc/polkit-1/localauthority/50-local.d directory exists
+      file:
+        path: /etc/polkit-1/localauthority/50-local.d
+        state: directory
+        mode: '0755'
+
+    - name: Create /etc/polkit-1/localauthority/50-local.d/45-allow-colord.pkla
+      copy:
+        dest: /etc/polkit-1/localauthority/50-local.d/45-allow-colord.pkla
+        content: |
+          [Allow Colord all Users]
+          Identity=unix-user:*
+          Action=org.freedesktop.color-manager.create-device;org.freedesktop.color-manager.create-profile;org.freedesktop.color-manager.delete-device;org.freedesktop.color-manager.delete-profile;org.freedesktop.color-manager.modify-device;org.freedesktop.color-manager.modify-profile
+          ResultAny=no
+          ResultInactive=no
+          ResultActive=yes
+        mode: '0644'

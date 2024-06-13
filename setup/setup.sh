@@ -29,7 +29,7 @@ else
 fi
 
 ####### SSH SETUP #######
-ANSIBLE_SSH="setup/ssh.yml"
+ANSIBLE_SSH="setup/services/ssh.yml"
 echo "Running Ansible playbook for SSH..."
 ansible-pull -U $GITHUB_REPO -i "localhost," -c local -K $ANSIBLE_SSH
 echo "Done!"
@@ -37,7 +37,7 @@ echo "Done!"
 
 ####### LDAP and NFS #####
 echo "Running script for LDAP and NFS..."
-LDAP_PATH="setup/LDAP.sh"
+LDAP_PATH="setup/services/LDAP.sh"
 wget -q https://raw.githubusercontent.com/IE-Robotics-Lab/scripts/main/$LDAP_PATH -O ldap.sh
 chmod +x ldap.sh
 sudo ./ldap.sh
