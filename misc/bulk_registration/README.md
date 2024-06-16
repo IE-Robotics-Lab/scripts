@@ -2,9 +2,9 @@
 
 Create a Google Sheet with these columns:
 
-```
-First Name	Last Name	Email
-```
+| First Name | Last Name | Email |
+|--|--|--|
+| ... | ... | ... |
 
 They must be strictly this syntax.
 
