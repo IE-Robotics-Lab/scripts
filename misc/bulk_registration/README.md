@@ -25,6 +25,7 @@ All new users will be created with the following details:
 So if we have a user like:
 
 | First Name | Last Name | Email |
+|--|--|--|
 | Johny | Doey | johny@doey.com |
 
 Their username will be `johny` and password `johny__`.
