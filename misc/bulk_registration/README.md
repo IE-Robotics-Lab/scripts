@@ -1,5 +1,9 @@
 # Bulk Registration Script
 
+> For when you need to register a lot of users at once, like a new batch of students or guests in a workshop.
+
+For the bulk registration of users in LAM, we can use this script to create a `.csv` file with the users' data and then upload it to LAM. This script will create a new `.csv` file with the users' data and their passwords.
+
 Create a Google Sheet with these columns:
 
 | First Name | Last Name | Email |
