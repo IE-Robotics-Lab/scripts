@@ -29,5 +29,5 @@ So if we have a user like:
 
 Their username will be `johny` and password `johny__`.
 
-> [[!IMPORTANT]]
+> [!IMPORTANT]
 > All users should change their password on first login by running `passwd`
