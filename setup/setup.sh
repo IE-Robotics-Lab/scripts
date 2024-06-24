@@ -13,19 +13,30 @@ ansible-pull -U $GITHUB_REPO -i "localhost," -c local -K $ANSIBLE_PACKAGES
 
 
 ####### DNS SETUP #######
-echo "Enabling local DNS resolution..."
-DNS_ENABLE_SCRIPT="https://raw.githubusercontent.com/IE-Robotics-Lab/scripts/main/ubuntu_enable_local_dns.sh"
-curl -s $DNS_ENABLE_SCRIPT | bash
-echo "Waiting for DNS to update..."
-# wait a bit for the DNS to update
-sleep 5
-echo "Local DNS resolution enabled!"
-# test it out by ping to colossus
 ping colossus -c 5
 if [ $? -eq 0 ]; then
     echo "Local DNS resolution is working!"
 else
-    echo "Local DNS resolution is not working!"
+    echo "Local DNS resolution is not working, do you want to setup a local DNS server? (y/n)"
+    read answer
+    if [ "$answer" == "y" ]; then
+        echo "Enabling local DNS resolution..."
+        DNS_ENABLE_SCRIPT="https://raw.githubusercontent.com/IE-Robotics-Lab/scripts/main/ubuntu_enable_local_dns.sh"
+        curl -s $DNS_ENABLE_SCRIPT | bash
+        echo "Waiting for DNS to update..."
+        # wait a bit for the DNS to update
+        sleep 5
+        echo "Local DNS resolution enabled!"
+        # test it out by ping to colossus
+        ping colossus -c 5
+        if [ $? -eq 0 ]; then
+            echo "Local DNS resolution is working!"
+        else
+            echo "Local DNS resolution is STILL not working!"
+        fi
+    else
+        echo "Skipping DNS setup..."
+    fi
 fi
 
 ####### SSH SETUP #######
